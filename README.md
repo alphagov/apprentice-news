@@ -16,7 +16,7 @@ Assuming you have [Bundler](http://bundler.io/) and [Postgres](https://www.postg
 ```
 bundle install
 ruby create-database.rb
-ruby ./main.rb
+ruby app/main.rb
 ```
 
 Running the tests
