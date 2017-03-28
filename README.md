@@ -1,5 +1,4 @@
-Apprentice News
-===============
+# Apprentice News [![Build Status](https://travis-ci.org/alphagov/apprentice-news.svg?branch=master)](https://travis-ci.org/alphagov/apprentice-news)
 
 Apprentice News is a [Hacker News](https://news.ycombinator.com) clone built by the GDS apprentice technologists.
 

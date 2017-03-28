@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative './database'
 
 class ApprenticeNews < Sinatra::Application
 
@@ -6,5 +7,8 @@ class ApprenticeNews < Sinatra::Application
     erb :index, locals: { title: 'Apprentice News' }
   end
 
-  run! if app_file == $0
+  if app_file == $0
+    Database.init
+    run!
+  end
 end
