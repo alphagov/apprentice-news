@@ -1,2 +1,31 @@
-<h1><%= title %></h1>
+<head>
+  <title><%= title %></title>
+  <link type="text/css" rel="stylesheet" href="/styles.css" />
+</head>
 
+<body>
+
+
+
+<div class="banner">
+  <h1><%= title %></h1>
+  <a href = "/submit">
+    <h2>Submit</h2>
+  </a>
+</div>
+
+<div id="bulk_box">
+  <ul>
+  <% @everything.each do |stuff| %>
+
+    <li>
+      <a href = "<%= stuff['url'] %>" ><h3><%= stuff['url'] %></h3></a>
+      <p><%= stuff['title'] %></p>
+      <p>-------------------------------------------------------------</br></p>
+    </li>
+  <% end %>
+  <ul>
+
+</div>
+
+</body>
