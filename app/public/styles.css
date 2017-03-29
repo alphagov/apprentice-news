@@ -1,0 +1,15 @@
+.banner {
+  width: 95%;
+  background-color: #8caadb;
+  font-family: sans-serif;
+  padding: 1%;
+  padding-left: 4%
+
+}
+
+#bulk_box {
+  width: 98%;
+  background-color: #becadd;
+  padding: 1%
+
+}
