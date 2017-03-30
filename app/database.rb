@@ -2,6 +2,8 @@ require 'pg'
 require 'etc'
 
 class Database
+
+  attr_reader :store
   def initialize
     uri = URI.parse ENV.fetch('DATABASE_URL', "postgres://#{Etc.getlogin}@localhost/apprenticenews")
     @conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
@@ -29,9 +31,7 @@ class Database
     end
   end
   def retrieval
-    connect = PG.connect :submissions
-    @store = @conn.exec "select * from submissions"
-    puts @store
+    return @conn.exec "select * from submissions"
   end
 
 

@@ -3,23 +3,26 @@ require_relative './database'
 
 class ApprenticeNews < Sinatra::Application
 
-
-
+data = Database.new
 
   get '/' do
-    erb :index, locals: { title: 'Apprentice News', submissions: [{url: @store} ] }
+    submissions = data.retrieval
+    erb :index, locals: { title: 'Apprentice News', submissions: submissions }
   end
 
-  if app_file == $0
-    Database.new.init
-    run!
-  end
+
+  #def initialize
+  #  data = Database.new
+
+    if app_file == $0
+      data.init
+      run!
+    end
+  #end
 
   #conn = connection
 
-  def data(retrieve)
-    return retrieve
-  end
+
 
 
 
