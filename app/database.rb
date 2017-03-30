@@ -1,15 +1,16 @@
 require 'pg'
 require 'etc'
 
-module Database
-  def self.init()
+class Database
+  def initialize
     uri = URI.parse ENV.fetch('DATABASE_URL', "postgres://#{Etc.getlogin}@localhost/apprenticenews")
-    conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
-
-    unless submissions_table_created(conn)
+    @conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+  end
+  def init
+    unless submissions_table_created(@conn)
       puts 'No submissions found, creating some example ones'
 
-      conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null)"
+      @conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null)"
       submissions = [
         {url:'https://www.gov.uk', title: 'Really cool website where you can interact with the UK Government'},
         {url:'https://duckduckgo.com', title: 'The search engine that doesn\'\'t track you'},
@@ -17,14 +18,23 @@ module Database
       ]
 
       submissions.each do |submission|
-        conn.exec "insert into submissions (url, title) values ('#{submission[:url]}','#{submission[:title]}')"
+        @conn.exec "insert into submissions (url, title) values ('#{submission[:url]}','#{submission[:title]}')"
       end
     end
   end
 
-  def self.submissions_table_created(conn)
+  def submissions_table_created(conn)
     conn.exec "select exists (select 1 from information_schema.tables where table_name = 'submissions')" do |result|
       return result.any? { |row| row['exists'] == 't' }
     end
   end
+  def retrieval
+    connect = PG.connect :submissions
+    @store = @conn.exec "select * from submissions"
+    puts @store
+  end
+
+
+
+
 end
