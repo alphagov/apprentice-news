@@ -1,29 +1,37 @@
 require 'pg'
 require 'etc'
 
-module Database
-  def self.init()
+class Database
+  def initialize()
     uri = URI.parse ENV.fetch('DATABASE_URL', "postgres://#{Etc.getlogin}@localhost/apprenticenews")
-    conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+    @conn = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
+  end
 
-    unless submissions_table_created(conn)
-      puts 'No submissions found, creating some example ones'
+  def init()
+    if submissions_table_created
+      return
+    end
 
-      conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null)"
-      submissions = [
-        {url:'https://www.gov.uk', title: 'Really cool website where you can interact with the UK Government'},
-        {url:'https://duckduckgo.com', title: 'The search engine that doesn\'\'t track you'},
-        {url:'https://github.com/alphagov/apprentice-news', title: 'The most awesome link aggregation site ever'},
-      ]
+    puts 'No submissions found, creating some example ones'
 
-      submissions.each do |submission|
-        conn.exec "insert into submissions (url, title) values ('#{submission[:url]}','#{submission[:title]}')"
-      end
+    @conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null)"
+    submissions = [
+      {url:'https://www.gov.uk', title: 'Really cool website where you can interact with the UK Government'},
+      {url:'https://duckduckgo.com', title: 'The search engine that doesn\'\'t track you'},
+      {url:'https://github.com/alphagov/apprentice-news', title: 'The most awesome link aggregation site ever'},
+    ]
+
+    submissions.each do |submission|
+      @conn.exec "insert into submissions (url, title) values ('#{submission[:url]}','#{submission[:title]}')"
     end
   end
 
-  def self.submissions_table_created(conn)
-    conn.exec "select exists (select 1 from information_schema.tables where table_name = 'submissions')" do |result|
+  def get_submissions()
+    @conn.exec 'select * from submissions'
+  end
+
+  def submissions_table_created
+    @conn.exec "select exists (select 1 from information_schema.tables where table_name = 'submissions')" do |result|
       return result.any? { |row| row['exists'] == 't' }
     end
   end

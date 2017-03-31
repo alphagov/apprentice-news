@@ -3,12 +3,15 @@ require_relative './database'
 
 class ApprenticeNews < Sinatra::Application
 
+  db = Database.new
+  db.init
+
   get '/' do
-    erb :index, locals: { title: 'Apprentice News' }
+    submissions = db.get_submissions
+    erb :index, locals: { submissions: submissions }
   end
 
-  if app_file == $0
-    Database.init
-    run!
-  end
+  run! if app_file == $0
+
 end
+

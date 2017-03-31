@@ -1,2 +1,10 @@
-<h1><%= title %></h1>
+<h1>Apprentice News</h1>
+
+<ul>
+  <% submissions.each do |submission| %>
+    <li>
+      <a href="<%= submission['url'] %>"><%= submission['title'] %></a>
+    </li>
+  <% end %>
+</ul>
 
