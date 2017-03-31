@@ -10,7 +10,7 @@
 <div class="banner">
   <h1><%= title %></h1>
   <a href = "/submit">
-    <h2>Submit</h2>
+    <h2 class="under_title_link">Submit</h2>
   </a>
 </div>
 
@@ -19,12 +19,12 @@
   <% @everything.each do |stuff| %>
 
     <li>
-      <a href = "<%= stuff['url'] %>" ><h3><%= stuff['url'] %></h3></a>
+      <a href = "<%= stuff['url'] %>" ><h3 class="homepage_links"><%= stuff['url'] %></h3></a>
       <p><%= stuff['title'] %></p>
-      <p>-------------------------------------------------------------</br></p>
+      <p><%= '-' * 50 %></br></p>
     </li>
   <% end %>
-  <ul>
+  </ul>
 
 </div>
 

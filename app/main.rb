@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require_relative './database'
+require 'pg'
 
 class ApprenticeNews < Sinatra::Application
 
@@ -22,7 +22,13 @@ class ApprenticeNews < Sinatra::Application
 
   def everything
     db_connection do |conn|
-      conn.exec('SELECT * FROM submissions')
+      conn.exec('SELECT * FROM submissions ORDER BY id DESC')
+    end
+  end
+
+  def submit(link, info)
+    db_connection do |conn|
+      conn.exec("INSERT INTO submissions (url, title) VALUES ('#{link}', '#{info}')")
     end
   end
 
@@ -36,9 +42,15 @@ class ApprenticeNews < Sinatra::Application
                             }
   end
 
+  post '/submit' do
+    link = params[:link]
+    info = params[:info]
+    submit(link, info)
+    erb :submitted, :locals => {'link' => link, 'info' => info}
+  end
+
 
   if app_file == $0
-    Database.init
     run!
   end
 

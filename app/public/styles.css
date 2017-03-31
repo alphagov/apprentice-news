@@ -3,13 +3,50 @@
   background-color: #8caadb;
   font-family: sans-serif;
   padding: 1%;
-  padding-left: 4%
+  padding-left: 4%;
+  border-bottom: 2px solid white
 
 }
 
 #bulk_box {
   width: 98%;
   background-color: #becadd;
-  padding: 1%
+  padding: 1%;
+  border-top: 2px dashed white
 
+}
+
+#submit_body {
+  width: 95%;
+  height: 45%;
+  background-color: #becadd;
+  padding: 1%;
+  padding-left: 4%;
+  padding-top: 4%;
+  font-family: sans-serif;
+  border-top: 2px dashed white
+
+}
+
+.homepage_links {
+  color: #3471d3
+}
+.homepage_links:hover {
+  color: #75787c
+}
+
+.under_title_link {
+  color: #072b66;
+  text-decoration: none;
+}
+.under_title_link:hover {
+  color: #75787c;
+  text-decoration: underline;
+}
+
+#info_input { height: 40%;
+              width: 30%
+}
+#url_input {  width: 30%;
+              height: 10%
 }
