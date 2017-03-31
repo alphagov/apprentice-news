@@ -13,9 +13,14 @@ Running the code
 Assuming you have [Bundler](http://bundler.io/) and [Postgres](https://www.postgresql.org/) installed:
 
 ```
+# Install the dependencies
 bundle install
+
+# Create the database
 ruby create-database.rb
-ruby app/main.rb
+
+# Run the application
+bundle exec rackup -p 3000
 ```
 
 Running the tests
