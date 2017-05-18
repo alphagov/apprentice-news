@@ -1,6 +1,49 @@
-<h1><%= title %></h1>
-  <body><% submissions.each do |entry|  %>
-    <%= entry['url'] %>
-    <%= entry['title'] %>
+  <!---<body>
+    <h1><%= title %></h1>
+    <div>
+    <% submissions.each do |entry|  %>
+      <a href= "<%= entry['url'] %>" >
+    <%= entry['url'] %></br>
+  </a>
+    <%= entry['title'] %></br>
+    <%end%>
+    </div>
+</body>-->
+
+<body>
+  <div id="wrapper">
+
+  <div id="banner">
+  <h1><%= title %></h1>
+  <link type="text/css" rel="stylesheet" href="/styles.css" />
+  <div class="smallprint"><p> A bit like reddit, only worse. </p></div>
+  <a href="/submit">
+    Submit
+  </a>
+</div>
+
+
+<% if defined?(submitted) %>
+  <div id="sub_message">
+    <p> Thank you for your submission! </p>
+  </div>
+<% end %>
+  <div id="subs">
+  <% submissions.each do |entry|  %>
+  <a href= "<%= entry['url']%>" >
+    <h1> <%= entry['url'] %> </h1></a> <br>
+    <p> <%= entry['title'] %> </p> <br>
+    <p style= "font-weight:bold; margin-left: 100px;"> <%= entry['vote'] %> </p>
+
+
+
+
+
   <%end%>
+</div>
+
+</div>
 </body>
+
+<!---html forms, look into them, will create input fields and submit button-->
+<!---stuff about connecting forms to code is hard to find/some in learn ruby the hard way-->

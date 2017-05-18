@@ -1,0 +1,58 @@
+#wrapper {
+  border: 2px solid #000;
+  margin: 50px;
+  background: #ccfffc;
+  border-radius: 15px 15px 15px 15px;
+  height: auto;
+
+
+}
+
+#banner {
+  background: #ccfffc;
+  border-bottom: 2px solid #000;
+  text-align: center;
+
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.smallprint {
+  width: 200px;
+  font-size:10px;
+  height: 10px;
+  margin: auto;
+}
+
+#submit_form {
+  margin: auto;
+  text-align: center;
+  height: 45%;
+  width: 80%;
+}
+
+#sub_message {
+  background: #155fd6;
+  border: 1px dashed #000;
+  font-family: verdana;
+  font-size: 34px;
+
+}
+
+#links {
+  margin: auto;
+  text-align: left;
+  width: auto;
+}
+
+#link {
+  text-align: left;
+  width: auto;
+  display: block;
+}
+
+.form_buttons {
+
+}

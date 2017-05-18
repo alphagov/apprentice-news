@@ -7,12 +7,32 @@ data = Database.new
 
   get '/' do
     submissions = data.retrieval
-    erb :index, locals: { title: 'Apprentice News', submissions: submissions }
+    puts 'inside root controller'
+    if params.key?("submitted")
+      erb :index, locals: { title: 'Apprentice News', submissions: submissions, submitted: true }
+    else
+      erb :index, locals: { title: 'Apprentice News', submissions: submissions }
+    end
   end
+
+  get '/submit' do
+    erb :submit, locals: {title: 'Submit'}
+  end
+
 
 
   #def initialize
   #  data = Database.new
+
+
+  post '/submit' do
+   link = params[:link]
+   description = params[:description]
+   data.submit(link, description)
+  # @submitted = true
+   #erb :submitted, :locals => {title: 'Submitted', 'link' => link, 'description' => description}
+   redirect to('/?submitted=true')
+ end
 
     if app_file == $0
       data.init
@@ -21,6 +41,10 @@ data = Database.new
   #end
 
   #conn = connection
+
+
+
+
 
 
 

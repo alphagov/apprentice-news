@@ -12,15 +12,15 @@ class Database
     unless submissions_table_created(@conn)
       puts 'No submissions found, creating some example ones'
 
-      @conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null)"
+      @conn.exec "create table submissions (id bigserial primary key, url text not null, title text not null, vote integer)"
       submissions = [
-        {url:'https://www.gov.uk', title: 'Really cool website where you can interact with the UK Government'},
-        {url:'https://duckduckgo.com', title: 'The search engine that doesn\'\'t track you'},
-        {url:'https://github.com/alphagov/apprentice-news', title: 'The most awesome link aggregation site ever'},
+        {url:'https://www.gov.uk', title: 'Really cool website where you can interact with the UK Government', vote: '0'},
+        {url:'https://duckduckgo.com', title: 'The search engine that doesn\'\'t track you', vote: '0'},
+        {url:'https://github.com/alphagov/apprentice-news', title: 'The most awesome link aggregation site ever', vote: '0'},
       ]
 
       submissions.each do |submission|
-        @conn.exec "insert into submissions (url, title) values ('#{submission[:url]}','#{submission[:title]}')"
+        @conn.exec "insert into submissions (url, title, vote) values ('#{submission[:url]}','#{submission[:title]}','#{submission[:vote]}')"
       end
     end
   end
@@ -32,6 +32,14 @@ class Database
   end
   def retrieval
     return @conn.exec "select * from submissions"
+  end
+
+  def submit(link, description)
+    @conn.exec ("INSERT INTO submissions (url, title, vote) VALUES ('#{link}', '#{description}', 0)")
+  end
+
+  def vote_up ()
+    @conn.exec ("UPDATE submissions SET vote = vote + 1 WHERE ")
   end
 
 
